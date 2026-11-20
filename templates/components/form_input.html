@@ -1,0 +1,13 @@
+<div class="mb-3">
+    <label for="{{ field.id }}" class="form-label fw-semibold">{{ label }}</label>
+    <input type="{{ type|default:"text" }}"
+           name="{{ field.name }}"
+           id="{{ field.id }}"
+           value="{{ field.value|default:"" }}"
+           class="form-control {% if field.errors %} is-invalid {% endif %}"
+           placeholder="{{ placeholder }}"
+           >
+    {% for error in field.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+    {% endfor %}
+</div>

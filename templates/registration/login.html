@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Вход{% endblock title %}
+{% block main %}
+    <div class="container">
+        <div class="col-lg-5 mx-auto">
+            <div class="card p-2 mt-3">
+                <div class="card-body">
+
+                    <img src="{% static 'img/logo.svg' %}" alt="Pulse" width="140" height="40" class="d-block mx-auto mb-3">
+
+                    <h2 class="card-title text-center fw-semibold">Вход</h2>
+                    <form action="{% url "login" %}" method="post">
+
+                        {% csrf_token %}
+
+
+                        {% with field=form.username type="text" label="Логин" placeholder="username" %}
+                            {% include "components/form_input.html" with field=field label=label placeholder=placeholder type=type only %}
+                        {% endwith %}
+                        {% with field=form.password type="password" label="Пароль" placeholder="••••••••" %}
+                            {% include "components/form_input.html" with field=field label=label placeholder=placeholder type=type only %}
+                        {% endwith %}
+
+                        <div class="text-end mb-3">
+                            <a href="{% url "password_reset" %}" class="text-decoration-none">Забыли пароль?</a>
+                        </div>
+
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                        <button class="btn btn-primary w-100 mb-4" type="submit">Войти</button>
+
+                        <div class="text-center">
+                            <p>Нет аккаунта?
+                                <a href="{% url "signup" %}" class="text-decoration-none">Регистрация</a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
